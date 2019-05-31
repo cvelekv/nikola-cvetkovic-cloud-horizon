@@ -13,12 +13,19 @@ class NewsItem extends Component {
     let commentsNum = this.state.item.kids ? this.state.item.kids.length : null;
     let commentsLink =
       "https://news.ycombinator.com/item?id=" + this.state.item.id;
+
+    let temp = document.createElement("a");
+    temp.href = this.state.item.url;
+    let hostName = temp.hostname;
+
     return (
       <li className="list-group-item">
         <p>
           <span className="gray-text">{this.state.item.rank}. </span>
-          {this.state.item.title}
+          {this.state.item.title}{" "}
+          <span className="gray-text">({hostName})</span>
         </p>
+
         <p>
           {this.state.item.score} <span> points</span>
           <span className="gray-text"> by </span>
