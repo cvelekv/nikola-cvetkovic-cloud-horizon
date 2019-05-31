@@ -6,22 +6,13 @@ import NavBar from './components/NavBar';
 import News from './components/News';
 import Spinner from './components/Spinner';
 
-function fetchSingleStory(id, index) {
-  return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-    .then(data => data.json())
-    .then(data => {
-      let item = data;
-      item.rank = index + 1;
-      return item;
-    });
-}
-
 class App extends Component {
   state = {
     loaded: false,
     loading: false,
     prev: 0,
     next: 20,
+    index: 0,
     newStories: []
   };
 
@@ -34,10 +25,11 @@ class App extends Component {
   fetchNewStories(storyIds) {
     let prev = this.state.prev;
     let next = this.state.next;
+    let baseIndex = this.state.index;
 
     let actions = storyIds
       .slice(prev, next)
-      .map((val, index) => fetchSingleStory(val, index));
+      .map((val, index) => this.fetchSingleStory(val, index + baseIndex));
     let results = Promise.all(actions);
     results.then(data => {
       this.setState(
@@ -49,6 +41,18 @@ class App extends Component {
       );
     });
   }
+
+  fetchSingleStory(id, index) {
+    return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+      .then(data => data.json())
+      .then(data => {
+        let item = data;
+
+        item.rank = index + 1;
+        return item;
+      });
+  }
+
   loadData() {
     this.setState({ loading: true });
     const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
@@ -65,13 +69,25 @@ class App extends Component {
   next() {
     let newNext = this.state.next + 20;
     let newPrev = this.state.prev + 20;
-    this.setState({ next: newNext, prev: newPrev, loaded: false });
+    let newIndex = this.state.index + 20;
+    this.setState({
+      next: newNext,
+      prev: newPrev,
+      loaded: false,
+      index: newIndex
+    });
     this.loadData();
   }
   prev() {
     let newNext = this.state.next - 20;
     let newPrev = this.state.prev - 20;
-    this.setState({ next: newNext, prev: newPrev, loaded: false });
+    let newIndex = this.state.index - 20;
+    this.setState({
+      next: newNext,
+      prev: newPrev,
+      loaded: false,
+      index: newIndex
+    });
     this.loadData();
   }
 
