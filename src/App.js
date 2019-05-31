@@ -65,9 +65,7 @@ class App extends Component {
       });
   }
   componentDidMount() {
-    console.log("Mount called");
     this.loadData();
-    // TODO: check how auto refreshing works when on another page
     setInterval(() => {
       this.reLoadPage();
     }, 30000);
@@ -99,6 +97,7 @@ class App extends Component {
     this.loadData();
   }
   reLoadPage() {
+    // TODO: Check if page number should be preserved when refreshing
     this.loadData();
     this.setState({ loaded: false });
     console.log("Refreshed automatically called");

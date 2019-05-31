@@ -66,3 +66,38 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+#### Zadatak
+
+Potrebno je napraviti naslovnu stranu Hacker Newsa. Screenshot dizajna je u prilogu.
+
+Aplikacija treba:
+
+Da bude napisana u Reactu
+Da se povezuje sa Hacker News APIjem
+Da prikazuje listu od 20 najpopularnijih postova na Hacker Newsu
+Da prikaže narednih 20 postova kada se klikne na "more" link na dnu liste
+Da prilikom prelaska na drugu stranu prikazuje i "prev" link koji služi za vraćanje
+Da automatski osvežava listu postova na svakih 30 sekundi
+Da osveži listu pritiskom na refresh dugme
+Da radi lepo na Chromeu u rezoluciji 1024px i šire
+
+Bonus:
+
+Responsive design, da se aplikacija lepo prikazuje i na mobilnim telefonima
+Da linkovi ka komentarima otvaraju komentare na Hacker News sajtu
+Da radi fino na svim browserima (zanemari IE)
+Svi dodatni predlozi koje nismo napomenuli ovde
+
+Na šta ćemo najviše obratiti pažnju:
+
+Da li aplikacija radi
+Struktura aplikacije
+Komponente
+Na koji način se koriste React lifecycle events
+Organizacija koda
+
+Na šta ne treba gubiti vreme:
+
+Webpack config u ovom slučaju uopšte nije bitan, nema potrebe praviti savršen setup za aplikaciju
+Redux, možeš ga koristiti ako želiš, ali i ako ga izostaviš nije od ključnog značaja za test

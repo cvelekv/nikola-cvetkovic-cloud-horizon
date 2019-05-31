@@ -14,6 +14,7 @@ class NewsItem extends Component {
     let commentsLink =
       "https://news.ycombinator.com/item?id=" + this.state.item.id;
 
+    //creating a tag so I could extract the hostname from it (dodged  the usage of regex )
     let temp = document.createElement("a");
     temp.href = this.state.item.url;
     let hostName = temp.hostname;
