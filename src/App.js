@@ -67,7 +67,7 @@ class App extends Component {
   componentDidMount() {
     console.log("Mount called");
     this.loadData();
-
+    // TODO: check how auto refreshing works when on another page
     setInterval(() => {
       this.reLoadPage();
     }, 30000);
@@ -77,6 +77,7 @@ class App extends Component {
     let newNext = this.state.next + 20;
     let newPrev = this.state.prev + 20;
     let newIndex = this.state.index + 20;
+
     this.setState({
       next: newNext,
       prev: newPrev,

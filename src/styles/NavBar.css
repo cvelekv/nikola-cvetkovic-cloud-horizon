@@ -3,16 +3,24 @@
     background-color:#ff7e16!important;
     height: 55px;
 }
-.nav-bar-content{
+.nav-bar-content {
     position: relative;
     bottom: 35%;
 }
-.btn-color{
+.btn-color {
+    position: relative;
     background-color: transparent;
     color: black;
-  }
+    bottom: 4px;
+} 
 
-  *:focus {
-    outline: none !important;
-    border: 0 !important;
-  }
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none!important;
+   
+}
+
+.btn:active {
+    top: 1px;
+}
+
