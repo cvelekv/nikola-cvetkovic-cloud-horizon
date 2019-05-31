@@ -20,13 +20,13 @@ class NewsItem extends Component {
 
     return (
       <li className="list-group-item">
-        <p>
+        <p className="title-font-size">
           <span className="gray-text">{this.state.item.rank}. </span>
           {this.state.item.title}{" "}
           <span className="gray-text">({hostName})</span>
         </p>
 
-        <p>
+        <p className="info-font">
           {this.state.item.score} <span> points</span>
           <span className="gray-text"> by </span>
           {this.state.item.by}
