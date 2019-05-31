@@ -10,7 +10,7 @@ class NewsItem extends Component {
   };
   render() {
     let hoursA = moment(this.state.item.time).hours();
-
+    let commentsNum = this.state.item.kids ? this.state.item.kids.length : null;
     return (
       <li className="list-group-item">
         <p>
@@ -21,7 +21,8 @@ class NewsItem extends Component {
           {this.state.item.score} <span> points</span>
           <span className="gray-text"> by </span>
           {this.state.item.by}{" "}
-          <span className="gray-text">{hoursA} hours ago</span> | 4 comments
+          <span className="gray-text">{hoursA} hours ago</span> |{" "}
+          {commentsNum ? commentsNum + " comments" : "no comments"}
         </p>
       </li>
     );
