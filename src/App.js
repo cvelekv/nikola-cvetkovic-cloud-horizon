@@ -106,10 +106,10 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="container">
         <NavBar refreshPage={e => this.refresh(e)} />
 
-        <main className="container mt-2">
+        <main className="mt-2">
           {this.state.loaded ? (
             <News newsObj={this.state.newStories} />
           ) : (
@@ -122,21 +122,21 @@ class App extends Component {
           <div className="row button-align">
             {this.state.prev > 0 && (
               <button
-                className="btn btn-primary btn-sm mt-2"
+                className="btn btn-primary prevButtonAlign btn-sm mt-2 mr-3"
                 onClick={() => this.prev()}
               >
                 Prev
               </button>
             )}
             <button
-              className="btn btn-primary btn-sm mt-2 ml-2"
+              className="btn btn-primary nextButtonAlign btn-sm mt-2 ml-3"
               onClick={() => this.next()}
             >
               Next
             </button>
           </div>
         ) : null}
-      </React.Fragment>
+      </div>
     );
   }
 }

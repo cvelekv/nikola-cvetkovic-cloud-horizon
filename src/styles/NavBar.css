@@ -9,18 +9,17 @@
 }
 .btn-color {
     position: relative;
-    background-color: transparent;
-    color: black;
-    bottom: 4px;
+    /* background-color: transparent;
+    color: black; */
+    /* bottom: 10px; */
 } 
 
 .btn.focus, .btn:focus {
     outline: 0;
     box-shadow: none!important;
-   
 }
 
 .btn:active {
-    top: 1px;
+    top: 2px;
 }
 

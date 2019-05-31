@@ -22,8 +22,8 @@ class NewsItem extends Component {
         <p>
           {this.state.item.score} <span> points</span>
           <span className="gray-text"> by </span>
-          {this.state.item.by}{" "}
-          <span className="gray-text">{hoursA} hours ago</span> |
+          {this.state.item.by}
+          <span className="gray-text"> {hoursA} hours ago</span> |{" "}
           {commentsNum ? (
             <a target="_blank" rel="noopener noreferrer" href={commentsLink}>
               {commentsNum} comments

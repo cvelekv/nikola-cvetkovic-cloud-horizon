@@ -12,16 +12,13 @@ class NavBar extends Component {
         <nav className="navbar navbar-light nav-bar-custom">
           <a className="navbar-brand m-2 nav-bar-content" href="/">
             <b> HackerNews</b>
-            <span className="badge badge-pill badge-secondary">
-              {/* ovde mozda kolko ima vesti (mada 20 ide po strani svakako) */}
-            </span>
-            <button
-              className="btn btn-default btn-color btn-lg ml-3"
-              onClick={e => this.props.refreshPage(e)}
-            >
-              <img src={refreshLogo} alt={refreshLogo} width="20px" />
-            </button>
           </a>
+          <button
+            className="btn btn-default btn-color btn-lg ml-3 mb-4"
+            onClick={e => this.props.refreshPage(e)}
+          >
+            <img src={refreshLogo} alt={refreshLogo} width="20px" />
+          </button>
         </nav>
       </React.Fragment>
     );
