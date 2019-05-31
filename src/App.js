@@ -16,18 +16,30 @@ class App extends Component {
     newStories: []
   };
 
-  refresh(e) {
-    e.preventDefault();
-    this.setState({ loaded: false });
+  componentDidMount() {
     this.loadData();
+
+    setInterval(() => {
+      this.reLoadPage();
+    }, 30000);
   }
 
-  fetchNewStories(storyIds) {
+  loadData() {
+    this.setState({ loading: true });
+    const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
+    fetch(URL)
+      .then(data => data.json())
+      .then(data => {
+        this.fetchNewStories(data);
+      });
+  }
+
+  fetchNewStories(ids) {
     let prev = this.state.prev;
     let next = this.state.next;
     let baseIndex = this.state.index;
 
-    let actions = storyIds
+    let actions = ids
       .slice(prev, next)
       .map((val, index) => this.fetchSingleStory(val, index + baseIndex));
 
@@ -55,20 +67,10 @@ class App extends Component {
       });
   }
 
-  loadData() {
-    this.setState({ loading: true });
-    const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
-    fetch(URL)
-      .then(data => data.json())
-      .then(data => {
-        this.fetchNewStories(data);
-      });
-  }
-  componentDidMount() {
+  refresh(e) {
+    e.preventDefault();
+    this.setState({ loaded: false });
     this.loadData();
-    setInterval(() => {
-      this.reLoadPage();
-    }, 30000);
   }
 
   next() {
