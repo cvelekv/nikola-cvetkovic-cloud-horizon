@@ -9,14 +9,12 @@ class NewsItem extends Component {
     item: this.props.oneNews
   };
   render() {
-    // let currentTimeHours = moment(new Date()).hours();
     let hoursA = moment(this.state.item.time).hours();
-    // console.log("Time" currentTimeHours);
 
     return (
       <li className="list-group-item">
         <p>
-          <span className="gray-text">{this.state.index}. </span>
+          <span className="gray-text">{this.state.item.rank}. </span>
           {this.state.item.title}
         </p>
         <p>
@@ -24,7 +22,6 @@ class NewsItem extends Component {
           <span className="gray-text"> by </span>
           {this.state.item.by}{" "}
           <span className="gray-text">{hoursA} hours ago</span> | 4 comments
-          <b>TYPE:{this.state.item.type}</b>
         </p>
       </li>
     );

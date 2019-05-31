@@ -40,3 +40,8 @@
   position: absolute;
   z-index: 9999;
 }
+
+.button-align{
+  position: relative;
+  left: 10%;
+}
