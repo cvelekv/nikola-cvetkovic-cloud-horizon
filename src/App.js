@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import NavBar from "./components/NavBar";
-import News from "./components/News";
+import './App.css';
 
-function fetchSingleStory(id, index) {
-  const rank = index + 1;
+import React, { Component } from 'react';
+
+import NavBar from './components/NavBar';
+import News from './components/News';
+import Spinner from './components/Spinner';
+
+function fetchSingleStory(id) {
   return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
     .then(data => data.json())
     .then(data => {
       let item = data;
-      // console.log("EACH ITEM", item);
-      // add the rank since it does not exist yet
-      item.rank = rank;
       return item;
     });
 }
@@ -18,46 +18,36 @@ function fetchSingleStory(id, index) {
 class App extends Component {
   state = {
     loaded: false,
+    loading: false,
+    prev: 0,
+    next: 20,
     newStories: []
   };
 
-  // getTopStories() {
-  //   const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
-  //   axios(URL)
-  //     .then(result => {
-  //       let obj = this.getSingleStoryObject(result.data);
-  //       this.setState({ newsObj: obj, loaded: true });
-  //     })
-  //     .catch(error => console.error(error));
-  // }
+  refresh(e) {
+    e.preventDefault();
+    this.setState({ loaded: false });
+    this.loadData();
+  }
 
-  // getSingleStoryObject(ids) {
-  //   let results = [];
-  //   ids.slice(0, 20).map(val => {
-  //     fetch(`https://hacker-news.firebaseio.com/v0/item/${val}.json`)
-  //       .then(data => data.json())
-  //       .then(data => {
-  //         results.push(data);
-  //       });
-  //   });
-
-  //   return results;
-  // }
   fetchNewStories(storyIds) {
-    let actions = storyIds.slice(0, 10).map(val => fetchSingleStory(val, 0));
+    let prev = this.state.prev;
+    let next = this.state.next;
+
+    let actions = storyIds.slice(prev, next).map(val => fetchSingleStory(val));
     let results = Promise.all(actions);
-    // console.log("results", results);
     results.then(data => {
       this.setState(
         Object.assign({}, this.state, {
           newStories: data,
-          loaded: true
+          loaded: true,
+          loading: false
         })
       );
     });
   }
-
-  componentDidMount() {
+  loadData() {
+    this.setState({ loading: true });
     const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
     fetch(URL)
       .then(data => data.json())
@@ -65,14 +55,28 @@ class App extends Component {
         this.fetchNewStories(data);
       });
   }
+  componentDidMount() {
+    this.loadData();
+  }
 
   render() {
     return (
       <React.Fragment>
-        <NavBar />
-        <main className="container">
-          {this.state.loaded ? <News newsObj={this.state.newStories} /> : null}
+        <NavBar refreshPage={e => this.refresh(e)} />
+
+        <main className="container mt-2">
+          {this.state.loaded ? (
+            <News newsObj={this.state.newStories} />
+          ) : (
+            <div className="spinner-class">
+              <Spinner />
+            </div>
+          )}
         </main>
+        <div className="row">
+          <button className="btn btn-primary btn-sm">Prev</button>
+          <button className="btn btn-primary btn-sm">Next</button>
+        </div>
       </React.Fragment>
     );
   }

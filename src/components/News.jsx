@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import NewsItem from "./NewsItem";
+import React, { Component } from 'react';
+
+import NewsItem from './NewsItem';
 
 class News extends Component {
   state = {
@@ -9,15 +10,14 @@ class News extends Component {
 
   async componentDidMount() {
     await this.props;
-    // console.log("AWAIT", this.props);
     this.setState({ data: this.props.newsObj, loaded: true });
   }
 
   content() {
     return (
       <ul className="list-group">
-        {this.state.data.map(item => {
-          return <NewsItem key={item.id} oneNews={item} />;
+        {this.state.data.map((item, index) => {
+          return <NewsItem key={item.id} oneNews={item} index={index + 1} />;
         })}
       </ul>
     );

@@ -1,0 +1,18 @@
+
+.nav-bar-custom {
+    background-color:#ff7e16!important;
+    height: 55px;
+}
+.nav-bar-content{
+    position: relative;
+    bottom: 35%;
+}
+.btn-color{
+    background-color: transparent;
+    color: black;
+  }
+
+  *:focus {
+    outline: none !important;
+    border: 0 !important;
+  }
