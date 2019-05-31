@@ -30,7 +30,9 @@ class App extends Component {
     let actions = storyIds
       .slice(prev, next)
       .map((val, index) => this.fetchSingleStory(val, index + baseIndex));
+
     let results = Promise.all(actions);
+
     results.then(data => {
       this.setState(
         Object.assign({}, this.state, {
@@ -63,7 +65,12 @@ class App extends Component {
       });
   }
   componentDidMount() {
+    console.log("Mount called");
     this.loadData();
+
+    setInterval(() => {
+      this.reLoadPage();
+    }, 30000);
   }
 
   next() {
@@ -89,6 +96,11 @@ class App extends Component {
       index: newIndex
     });
     this.loadData();
+  }
+  reLoadPage() {
+    this.loadData();
+    this.setState({ loaded: false });
+    console.log("Refreshed automatically called");
   }
 
   render() {

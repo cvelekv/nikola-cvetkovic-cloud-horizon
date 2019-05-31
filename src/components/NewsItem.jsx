@@ -25,7 +25,7 @@ class NewsItem extends Component {
           {this.state.item.by}{" "}
           <span className="gray-text">{hoursA} hours ago</span> |
           {commentsNum ? (
-            <a target="_blank" href={commentsLink}>
+            <a target="_blank" rel="noopener noreferrer" href={commentsLink}>
               {commentsNum} comments
             </a>
           ) : (
