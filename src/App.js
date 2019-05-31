@@ -84,6 +84,7 @@ class App extends Component {
     });
     this.loadData();
   }
+
   prev() {
     let newNext = this.state.next - 20;
     let newPrev = this.state.prev - 20;
@@ -96,6 +97,7 @@ class App extends Component {
     });
     this.loadData();
   }
+
   reLoadPage() {
     // TODO: Check if page number should be preserved when refreshing
     this.loadData();

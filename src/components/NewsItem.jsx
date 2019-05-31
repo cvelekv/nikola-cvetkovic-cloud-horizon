@@ -8,6 +8,7 @@ class NewsItem extends Component {
     index: this.props.index,
     item: this.props.oneNews
   };
+
   render() {
     let hoursA = moment(this.state.item.time).hours();
     let commentsNum = this.state.item.kids ? this.state.item.kids.length : null;

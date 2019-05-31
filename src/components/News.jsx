@@ -24,7 +24,6 @@ class News extends Component {
   }
 
   render() {
-    console.log("STATE", this.state);
     return (
       <React.Fragment>
         {this.state.loaded ? this.content() : null}
