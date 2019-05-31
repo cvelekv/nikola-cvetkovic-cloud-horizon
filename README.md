@@ -30,6 +30,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Zadatak
 
 Potrebno je napraviti naslovnu stranu Hacker Newsa. Screenshot dizajna je u prilogu.
+![alt text](https://cms.jotform.com/uploads/image_upload/image_upload/global/86342_hackernews%20(1).png)
+
 
 Aplikacija treba:
 
