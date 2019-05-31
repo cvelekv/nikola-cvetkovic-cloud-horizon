@@ -104,7 +104,6 @@ class App extends Component {
     // TODO: Check if page number should be preserved when refreshing
     this.loadData();
     this.setState({ loaded: false });
-    console.log("Refreshed automatically called");
   }
 
   render() {
