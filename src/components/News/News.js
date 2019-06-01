@@ -1,35 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 
 import NewsItem from "../NewsItem/NewsItem";
 
-class News extends Component {
-  state = {
-    loaded: false,
-    data: []
-  };
+function News(props) {
+  let { newsObj } = props;
 
-  async componentDidMount() {
-    await this.props;
-    this.setState({ data: this.props.newsObj, loaded: true });
-  }
-
-  content() {
-    return (
-      <ul className="list-group">
-        {this.state.data.map((item, index) => {
-          return <NewsItem key={item.id} oneNews={item} index={index + 1} />;
-        })}
-      </ul>
-    );
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        {this.state.loaded ? this.content() : null}
-      </React.Fragment>
-    );
-  }
+  return (
+    <ul className="list-group">
+      {newsObj.map(item => {
+        return <NewsItem key={item.id} oneNews={item} />;
+      })}
+    </ul>
+  );
 }
 
 export default News;

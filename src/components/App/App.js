@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import News from "../News/News";
 import Spinner from "../Spinner/Spinner";
+import Footer from "../Footer/Footer";
 
 class App extends Component {
   state = {
@@ -12,7 +13,7 @@ class App extends Component {
     loading: false,
     prev: 0,
     next: 20,
-    index: 0,
+    baseIndex: 0,
     newStories: []
   };
 
@@ -39,34 +40,28 @@ class App extends Component {
   }
 
   fetchAllStories(ids) {
-    let prev = this.state.prev;
-    let next = this.state.next;
-    let baseIndex = this.state.index;
+    let { prev, next, baseIndex } = this.state;
 
     let stories = ids
       .slice(prev, next)
-      .map((val, index) => this.fetchSingleStory(val, index + baseIndex));
+      .map((val, index) => this.fetchOneStory(val, index + baseIndex));
 
-    let results = Promise.all(stories);
-
-    results.then(data => {
-      this.setState(
-        Object.assign({}, this.state, {
-          newStories: data,
-          loaded: true,
-          loading: false
-        })
-      );
+    Promise.all(stories).then(data => {
+      this.setState({
+        newStories: data,
+        loaded: true,
+        loading: false
+      });
     });
   }
 
-  async fetchSingleStory(id, index) {
+  async fetchOneStory(id, index) {
     return await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
       .then(data => data.json())
       .then(data => {
         let item = data;
 
-        item.rank = index + 1;
+        item.index = index + 1;
         return item;
       })
       .catch(error => {
@@ -82,28 +77,25 @@ class App extends Component {
   }
 
   next() {
-    let newNext = this.state.next + 20;
-    let newPrev = this.state.prev + 20;
-    let newIndex = this.state.index + 20;
+    let { next, prev, baseIndex } = this.state;
 
     this.setState({
-      next: newNext,
-      prev: newPrev,
+      next: next + 20,
+      prev: prev + 20,
       loaded: false,
-      index: newIndex
+      baseIndex: baseIndex + 20
     });
     this.loadData();
   }
 
   prev() {
-    let newNext = this.state.next - 20;
-    let newPrev = this.state.prev - 20;
-    let newIndex = this.state.index - 20;
+    let { next, prev, baseIndex } = this.state;
+
     this.setState({
-      next: newNext,
-      prev: newPrev,
+      next: next - 20,
+      prev: prev - 20,
       loaded: false,
-      index: newIndex
+      baseIndex: baseIndex - 20
     });
     this.loadData();
   }
@@ -115,37 +107,26 @@ class App extends Component {
   }
 
   render() {
+    let { loaded, newStories, prev } = this.state;
+
     return (
       <div className="container">
         <NavBar refreshPage={e => this.refresh(e)} />
 
-        <main className="mt-2">
-          {this.state.loaded ? (
-            <News newsObj={this.state.newStories} />
-          ) : (
-            <div className="spinner-class">
-              <Spinner />
-            </div>
-          )}
-        </main>
-        {this.state.loaded ? (
-          <div className="row button-align">
-            {this.state.prev > 0 && (
-              <button
-                className="btn btn-primary prevButtonAlign btn-sm mt-2 mr-3"
-                onClick={() => this.prev()}
-              >
-                Prev
-              </button>
-            )}
-            <button
-              className="btn btn-primary nextButtonAlign btn-sm mt-2 ml-3"
-              onClick={() => this.next()}
-            >
-              Next
-            </button>
+        {loaded ? (
+          <main className="mt-2">
+            <News newsObj={newStories} />
+            <Footer
+              prevValue={prev}
+              onNext={() => this.next()}
+              onPrev={() => this.prev()}
+            />
+          </main>
+        ) : (
+          <div className="spinner-class">
+            <Spinner />
           </div>
-        ) : null}
+        )}
       </div>
     );
   }

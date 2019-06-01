@@ -1,0 +1,19 @@
+.button-align {
+  padding-bottom: 20px;
+}
+
+.prevButtonAlign {
+  position: relative;
+  left: 1.5%;
+}
+
+@media only screen and (max-device-width: 550px) {
+  .button-align {
+    position: relative;
+    left: 30%;
+  }
+  .nextButtonAlign {
+    position: relative;
+    left: 10%;
+  }
+}

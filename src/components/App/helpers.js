@@ -1,21 +1,18 @@
-export default function loadData(prev, next, baseIndex) {
+export function loadData() {
   // this.setState({ loading: true });
   const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
-  let result;
 
   fetch(URL)
     .then(data => data.json())
     .then(data => {
-      result = fetchAllStories(data, prev, next, baseIndex);
+      fetchAllStories(data);
     })
     .catch(error => {
       console.log(error);
     });
-
-  return result;
 }
 
-async function fetchAllStories(ids, prev, next, baseIndex) {
+export function fetchAllStories(ids, prev, next, baseIndex) {
   // let prev = this.state.prev;
   // let next = this.state.next;
   // let baseIndex = this.state.index;
