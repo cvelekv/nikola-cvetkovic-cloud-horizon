@@ -6,6 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import News from "../News/News";
 import Spinner from "../Spinner/Spinner";
 import Footer from "../Footer/Footer";
+import SnackBar from "../SnackBar/SnackBar";
 
 class App extends Component {
   state = {
@@ -17,30 +18,44 @@ class App extends Component {
     newStories: []
   };
 
+  snackbarRef = React.createRef();
+  _showSnackbarHandler = msg => {
+    this.snackbarRef.current.openSnackBar(msg);
+  };
+
   componentDidMount() {
     this.loadData();
 
+    //page refreshes every 30s
     setInterval(() => {
-      this.reLoadPage();
+      this.reloadPage();
     }, 30000);
   }
 
+  //loading all stories ids from hacher news API
   loadData() {
     this.setState({ loading: true });
+
     const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
 
     fetch(URL)
       .then(data => data.json())
       .then(data => {
+        //passing stories ids to this method so each story will be loaded
         this.fetchAllStories(data);
       })
       .catch(error => {
         console.log(error);
+        this._showSnackbarHandler(error);
       });
   }
 
   fetchAllStories(ids) {
     let { prev, next, baseIndex } = this.state;
+
+    //handled prev and next buttons selection by using slice method on array so I have stories ids properly (20 per page)
+    //with map operator I'm calling a method that will call API for getting one story, I'm passing ID of story and index (which will be the order number)
+    //map will return all requested stories, since there promises are returned, I use Promise.all to get a single promise from it and set state with returned data
 
     let stories = ids
       .slice(prev, next)
@@ -52,6 +67,7 @@ class App extends Component {
         loaded: true,
         loading: false
       });
+      this._showSnackbarHandler("News loaded...");
     });
   }
 
@@ -66,16 +82,26 @@ class App extends Component {
       })
       .catch(error => {
         console.log(error);
+        this._showSnackbarHandler(error);
       });
   }
 
+  //when button refresh is clicked
   refresh(e) {
     e.preventDefault();
-    this.setState({ loaded: false });
+
+    //setting defaults when refreshing the page manually
+    this.setState({
+      next: 20,
+      prev: 0,
+      baseIndex: 0,
+      loaded: false
+    });
 
     this.loadData();
   }
 
+  //when next button is clicked
   next() {
     let { next, prev, baseIndex } = this.state;
 
@@ -88,6 +114,7 @@ class App extends Component {
     this.loadData();
   }
 
+  //when previous button is clicked
   prev() {
     let { next, prev, baseIndex } = this.state;
 
@@ -100,8 +127,8 @@ class App extends Component {
     this.loadData();
   }
 
-  reLoadPage() {
-    // TODO: Check if page number should be preserved when refreshing
+  //automatically called every 30s
+  reloadPage() {
     this.loadData();
     this.setState({ loaded: false });
   }
@@ -127,6 +154,7 @@ class App extends Component {
             <Spinner />
           </div>
         )}
+        <SnackBar ref={this.snackbarRef} />
       </div>
     );
   }
