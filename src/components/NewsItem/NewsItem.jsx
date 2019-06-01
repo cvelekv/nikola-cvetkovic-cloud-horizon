@@ -1,7 +1,7 @@
-import '../styles/NewsItem.css';
+import "./NewsItem.css";
 
-import moment from 'moment';
-import React, { Component } from 'react';
+import moment from "moment";
+import React, { Component } from "react";
 
 class NewsItem extends Component {
   state = {

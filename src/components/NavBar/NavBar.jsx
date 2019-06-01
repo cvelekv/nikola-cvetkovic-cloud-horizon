@@ -1,8 +1,6 @@
-import '../styles/NavBar.css';
-
-import React from 'react';
-
-import refreshLogo from '../assets/refresh-button.png';
+import "./NavBar.css";
+import React from "react";
+import refreshIcon from "../../assets/refresh-button.png";
 
 function NavBar(props) {
   return (
@@ -15,7 +13,7 @@ function NavBar(props) {
           className="btn btn-default btn-color btn-lg ml-3 mb-4"
           onClick={e => props.refreshPage(e)}
         >
-          <img src={refreshLogo} alt={refreshLogo} width="20px" />
+          <img src={refreshIcon} alt={refreshIcon} width="20px" />
         </button>
       </nav>
     </React.Fragment>

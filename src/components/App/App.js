@@ -1,10 +1,10 @@
-import './App.css';
+import "./App.css";
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import NavBar from './components/NavBar';
-import News from './components/News';
-import Spinner from './components/Spinner';
+import NavBar from "../NavBar/NavBar";
+import News from "../News/News";
+import Spinner from "../Spinner/Spinner";
 
 class App extends Component {
   state = {
@@ -31,6 +31,9 @@ class App extends Component {
       .then(data => data.json())
       .then(data => {
         this.fetchNewStories(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -64,6 +67,9 @@ class App extends Component {
 
         item.rank = index + 1;
         return item;
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
