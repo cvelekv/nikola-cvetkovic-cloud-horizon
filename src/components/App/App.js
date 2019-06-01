@@ -27,26 +27,27 @@ class App extends Component {
   loadData() {
     this.setState({ loading: true });
     const URL = "https://hacker-news.firebaseio.com/v0/topstories.json";
+
     fetch(URL)
       .then(data => data.json())
       .then(data => {
-        this.fetchNewStories(data);
+        this.fetchAllStories(data);
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  fetchNewStories(ids) {
+  fetchAllStories(ids) {
     let prev = this.state.prev;
     let next = this.state.next;
     let baseIndex = this.state.index;
 
-    let actions = ids
+    let stories = ids
       .slice(prev, next)
       .map((val, index) => this.fetchSingleStory(val, index + baseIndex));
 
-    let results = Promise.all(actions);
+    let results = Promise.all(stories);
 
     results.then(data => {
       this.setState(
@@ -59,8 +60,8 @@ class App extends Component {
     });
   }
 
-  fetchSingleStory(id, index) {
-    return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+  async fetchSingleStory(id, index) {
+    return await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
       .then(data => data.json())
       .then(data => {
         let item = data;
@@ -76,6 +77,7 @@ class App extends Component {
   refresh(e) {
     e.preventDefault();
     this.setState({ loaded: false });
+
     this.loadData();
   }
 
