@@ -3,7 +3,7 @@ import React from "react";
 import NewsItem from "../NewsItem/NewsItem";
 
 function News(props) {
-  let { newsObj } = props;
+  const { newsObj } = props;
 
   return (
     <ul className="list-group">

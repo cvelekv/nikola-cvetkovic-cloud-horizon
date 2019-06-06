@@ -51,13 +51,13 @@ class App extends Component {
   }
 
   fetchAllStories(ids) {
-    let { prev, next, baseIndex } = this.state;
+    const { prev, next, baseIndex } = this.state;
 
     //handled prev and next buttons selection by using slice method on array so I have stories ids properly (20 per page)
     //with map operator I'm calling a method that will call API for getting one story, I'm passing ID of story and index (which will be the order number)
     //map will return all requested stories, since there promises are returned, I use Promise.all to get a single promise from it and set state with returned data
 
-    let stories = ids
+    const stories = ids
       .slice(prev, next)
       .map((val, index) => this.fetchOneStory(val, index + baseIndex));
 
@@ -103,7 +103,7 @@ class App extends Component {
 
   //when next button is clicked
   next() {
-    let { next, prev, baseIndex } = this.state;
+    const { next, prev, baseIndex } = this.state;
 
     this.setState({
       next: next + 20,
@@ -116,7 +116,7 @@ class App extends Component {
 
   //when previous button is clicked
   prev() {
-    let { next, prev, baseIndex } = this.state;
+    const { next, prev, baseIndex } = this.state;
 
     this.setState({
       next: next - 20,
@@ -134,7 +134,7 @@ class App extends Component {
   }
 
   render() {
-    let { loaded, newStories, prev } = this.state;
+    const { loaded, newStories, prev } = this.state;
 
     return (
       <div className="container">
