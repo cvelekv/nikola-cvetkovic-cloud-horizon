@@ -4,11 +4,17 @@ import moment from "moment";
 import React from "react";
 
 function NewsItem(props) {
-  let { oneNews } = props;
-
+  const { oneNews } = props;
+  // console.log("HOURS", moment.utc(oneNews.time).minutes());
+  let currentTime = moment().unix();
+  // console.log("current time", moment().unix());
+  // console.log("ONE NEWS ", oneNews.time);
+  let hoursA1 = Math.abs(currentTime - oneNews.time);
+  //NOTE: BUG time is not good
+  // console.log("Hours", moment.utc(hoursA1).minutes());
   let hoursA = moment(oneNews.time).hours();
-  let commentsNum = oneNews.kids ? oneNews.kids.length : null;
-  let commentsLink = "https://news.ycombinator.com/item?id=" + oneNews.id;
+  const commentsNum = oneNews.kids ? oneNews.kids.length : null;
+  const commentsLink = `https://news.ycombinator.com/item?id=${oneNews.id}`;
 
   //creating a tag so I could extract the hostname from it (dodged  the usage of regex )
   let temp = document.createElement("a");
