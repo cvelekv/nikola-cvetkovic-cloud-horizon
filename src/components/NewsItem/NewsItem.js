@@ -6,10 +6,10 @@ import React from "react";
 function NewsItem(props) {
   const { oneNews } = props;
   // console.log("HOURS", moment.utc(oneNews.time).minutes());
-  let currentTime = moment().unix();
+  // let currentTime = moment().unix();
   // console.log("current time", moment().unix());
   // console.log("ONE NEWS ", oneNews.time);
-  let hoursA1 = Math.abs(currentTime - oneNews.time);
+  // let hoursA1 = Math.abs(currentTime - oneNews.time);
   //NOTE: BUG time is not good
   // console.log("Hours", moment.utc(hoursA1).minutes());
   let hoursA = moment(oneNews.time).hours();
